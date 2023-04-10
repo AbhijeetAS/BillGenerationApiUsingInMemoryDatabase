@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
+@EnableMethodSecurity
 public class CustomerController {
 
     @Autowired
@@ -23,6 +24,7 @@ public class CustomerController {
     //check the previous order of same person
 
     @GetMapping("/{customerId}")
+    @PreAuthorize("hasAuthority('read:order')")
     public List<Order> orderHistory(@PathVariable String customerId)
     {
         return this.orderService.orderHistory(customerId);
